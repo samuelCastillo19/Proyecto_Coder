@@ -4,7 +4,13 @@
 
 {% block contenidoquecambia%}
 
-    <h1>Cursos</h1>
-    <p>Se ha heredado todo de la plantilla padre, pestaña cursos</p>
+    <h1>Cursos:</h1>
+
+    {% for curso in cursos %}
+
+        {{ curso }}
+        <br>
+
+    {% endfor %}
 
 {% endblock %}
