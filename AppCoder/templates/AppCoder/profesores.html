@@ -5,6 +5,12 @@
 {% block contenidoquecambia%}
 
     <h1>Profesores</h1>
-    <p>Se ha heredado todo de la plantilla padre, pestaña profesores</p>
+    
+    {% for profesor in profesores %}
+
+    {{ profesor }}
+    <br>
+
+{% endfor %}
 
 {% endblock %}
