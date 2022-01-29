@@ -1,20 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulario Profesores</title>
-</head>
-<body>
+{% extends "AppCoder/padre.html" %}
+{% load static %}
 
+{% block contenidoquecambia %}
+
+    <h1>Agregar Profesor: </h1>
+    
     {% if mi_formulario.errors %}
 
     <p style="color: red;"> Estan mal los datos, revisar</p>
 
     {% endif %}
 
-    <form action="/AppCoder/formulario_profesor/" method="POST">{% csrf_token %}
+    <form action="{% url 'formulario_profesor' %}" method="POST">{% csrf_token %}
 
         <table>
 
@@ -27,5 +24,4 @@
 
     </form>
     
-</body>
-</html>
+{% endblock %}

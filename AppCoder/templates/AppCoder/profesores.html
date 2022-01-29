@@ -6,11 +6,17 @@
 
     <h1>Profesores</h1>
     
-    {% for profesor in profesores %}
+{% for profesor in profesores %}
 
-    {{ profesor }}
-    <br>
+
+    <li>
+        {{ profesor }}
+    </li>
+        
+
 
 {% endfor %}
+
+<a class="btn btn-link" href="{% url 'formulario_profesor' %}">Nuevo Profesor</a>
 
 {% endblock %}
