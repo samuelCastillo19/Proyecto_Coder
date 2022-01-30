@@ -60,3 +60,30 @@ def formulario_profesor(request):
         mi_formulario = Profesor_Formulario()
     
     return render(request, "AppCoder/formulario_profesor.html", {'mi_formulario':mi_formulario})
+
+def busqueda_camada(request):
+    
+    return render(request, "AppCoder/busqueda_camada.html")
+
+def buscar(request):
+    
+    # respuesta = f'Estoy buscando la camada numero: {request.GET["camada"]}'
+    
+    
+    if request.GET["camada"]:
+        
+        camada = request.GET["camada"]
+        cursos = Curso.objects.filter(camada=camada)
+        return render(request, "AppCoder/resultados_busqueda.html", {"cursos":cursos, "camada":camada})
+    
+    else:
+        
+        respuesta = "No enviaste datos"
+    
+    return HttpResponse(respuesta)
+
+def profesor_delete(request, id_profe):
+    profesor = Profesor.objects.get(id=id_profe)
+    profesor.delete()
+    
+    return redirect('Profesores')

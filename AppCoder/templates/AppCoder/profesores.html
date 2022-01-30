@@ -11,6 +11,7 @@
 
     <li>
         {{ profesor }}
+        <a class="btn btn-link" href="{% url 'profesor_delete' profesor.id %}">Borrar</a>
     </li>
         
 
@@ -18,5 +19,6 @@
 {% endfor %}
 
 <a class="btn btn-link" href="{% url 'formulario_profesor' %}">Nuevo Profesor</a>
+
 
 {% endblock %}
