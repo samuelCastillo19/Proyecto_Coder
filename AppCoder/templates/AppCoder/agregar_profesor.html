@@ -5,17 +5,17 @@
 
     <h1>Agregar Profesor: </h1>
     
-    {% if mi_formulario.errors %}
+    {% if form.errors %}
 
     <p style="color: red;"> Estan mal los datos, revisar</p>
 
     {% endif %}
 
-    <form action="{% url 'formulario_profesor' %}" method="POST">{% csrf_token %}
+    <form action="{% url 'agregar_profesor' %}" method="POST">{% csrf_token %}
 
         <table>
 
-            {{ mi_formulario.as_table }}
+            {{ form.as_table }}
 
         </table>
 

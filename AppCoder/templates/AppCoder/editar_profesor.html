@@ -1,0 +1,26 @@
+{% extends "AppCoder/padre.html" %}
+{% load static %}
+
+{% block contenidoquecambia %}
+    <h1>Editar Profesor: </h1>
+        
+    {% if form.errors %}
+
+    <p style="color: red;"> Estan mal los datos, revisar</p>
+
+    {% endif %}
+
+    <form action="" method="POST">{% csrf_token %}
+
+        <table>
+
+            {{ form.as_table }}
+
+        </table>
+
+        <input type="submit" value="Enviar">
+        
+
+    </form>
+
+{% endblock %}

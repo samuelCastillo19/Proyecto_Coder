@@ -10,15 +10,17 @@
 
 
     <li>
-        {{ profesor }}
+        
+        <a class="btn btn-link" href="{% url 'profesor_view' profesor.id %}">{{ profesor }}</a>
         <a class="btn btn-link" href="{% url 'profesor_delete' profesor.id %}">Borrar</a>
+        <a class="btn btn-link" href="{% url 'profesor_update' profesor.id %}">Editar</a>
     </li>
         
 
 
 {% endfor %}
 
-<a class="btn btn-link" href="{% url 'formulario_profesor' %}">Nuevo Profesor</a>
+<a class="btn btn-link" href="{% url 'agregar_profesor' %}">Nuevo Profesor</a>
 
 
 {% endblock %}

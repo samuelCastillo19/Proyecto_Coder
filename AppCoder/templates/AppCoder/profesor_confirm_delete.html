@@ -1,0 +1,31 @@
+{% extends "AppCoder/padre.html" %}
+{% load static %}
+
+{% block contenidoquecambia %}
+
+    <h1>Borrar Profesor: </h1>
+
+    <p>Desea borrar a este profesor definitivamente?</p>
+    
+    {% if form.errors %}
+
+    <p style="color: red;"> Estan mal los datos, revisar</p>
+
+    {% endif %}
+
+    <form action="" method="POST">{% csrf_token %}
+
+        <ul>
+            <li>Nombre: {{profesor.nombre}}</li>
+            <li>Apellido: {{profesor.apellido}}</li>
+            <li>Email: {{profesor.email}}</li>
+            <li>Profesión: {{profesor.profesion}}</li>
+    
+        </ul>
+
+        <input type="submit" value="Borrar">
+        
+
+    </form>
+    
+{% endblock %}

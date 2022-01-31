@@ -1,3 +1,6 @@
+from django.urls import reverse_lazy
+from django.views.generic import ListView, DetailView, UpdateView, CreateView, DeleteView
+from django.forms import model_to_dict
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from AppCoder.models import *
@@ -87,3 +90,63 @@ def profesor_delete(request, id_profe):
     profesor.delete()
     
     return redirect('Profesores')
+
+def curso_delete(request, id_curso):
+    curso = Curso.objects.get(id=id_curso)
+    curso.delete()
+    
+    return redirect('Cursos')
+
+def profesor_update(request, id_profe):
+    
+    profesor = Profesor.objects.get(id=id_profe)
+    
+    if request.method == "POST":
+        
+        form = Profesor_Formulario(request.POST)
+        
+        if form.is_valid():
+            
+            info = form.cleaned_data
+            
+            profesor.nombre = info['nombre']
+            profesor.apellido = info['apellido']
+            profesor.email = info['email']
+            profesor.profesion = info['profesion']
+            
+            profesor.save()
+            
+            return redirect('Profesores')
+    else:
+        
+        form = Profesor_Formulario(model_to_dict(profesor))
+    
+    return render(request, "AppCoder/editar_profesor.html", {'form':form, "id_profe": id_profe})
+
+class ProfesorListView(ListView):
+    model = Profesor
+    template_name = "AppCoder/profesores.html"
+    context_object_name = 'profesores'
+    
+class ProfesorDetailView(DetailView):
+    model = Profesor
+    template_name = "AppCoder/ver_profesor.html"
+    
+class ProfesorCreateView(CreateView):
+    model = Profesor
+    success_url = reverse_lazy('Profesores')
+    fields = ['nombre', 'apellido', 'email', 'profesion']    
+    template_name = "AppCoder/agregar_profesor.html"
+    
+class ProfesorUpdateView(UpdateView):
+    model = Profesor
+    success_url = reverse_lazy('Profesores')
+    fields = ['nombre', 'apellido', 'email', 'profesion']    
+    template_name = "AppCoder/editar_profesor.html"
+    
+class ProfesorDeleteView(DeleteView):
+    model = Profesor
+    success_url = reverse_lazy('Profesores')
+    template_name = "AppCoder/profesor_confirm_delete.html"
+    
+    

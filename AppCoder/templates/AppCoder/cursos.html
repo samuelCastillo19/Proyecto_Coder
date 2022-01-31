@@ -8,8 +8,12 @@
 
     {% for curso in cursos %}
 
-        {{ curso }}
-        <br>
+        <div class="container">
+            <li>
+                {{ curso }}
+                <a class="btn btn-link" href="{% url 'curso_delete' curso.id %}">Borrar</a>
+            </li>
+        </div>
 
     {% endfor %}
 
