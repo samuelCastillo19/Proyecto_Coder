@@ -10,3 +10,7 @@ class Profesor_Formulario(forms.Form):
     apellido = forms.CharField()
     email = forms.EmailField()
     profesion = forms.CharField()
+    
+class AvatarFormulario(forms.Form):
+
+    imagen = forms.ImageField(required=True)

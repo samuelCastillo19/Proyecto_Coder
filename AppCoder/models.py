@@ -1,6 +1,6 @@
 import email
 from django.db import models
-
+from django.contrib.auth.models import User
 class Curso(models.Model):
     
     nombre = models.CharField(max_length=40)
@@ -33,3 +33,9 @@ class Entregable(models.Model):
     nombre = models.CharField(max_length=40)
     fecha_entrega = models.DateField()
     entregado = models.BooleanField()
+    
+class Avatar(models.Model):
+    
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    imagen = models.ImageField(upload_to='avatares', null=True, blank=True)
+    

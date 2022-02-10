@@ -4,11 +4,19 @@ from django.forms import model_to_dict
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from AppCoder.models import *
-from AppCoder.forms import Curso_Formulario, Profesor_Formulario
+from AppCoder.forms import AvatarFormulario, Curso_Formulario, Profesor_Formulario
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
 
 def inicio(request):
     
-    return render(request, "AppCoder/inicio.html")
+    avatares = Avatar.objects.filter(user=request.user)
+    if avatares:
+        avatar_url = avatares.last().imagen.url
+    else:
+        avatar_url = ''
+        
+    return render(request, "AppCoder/inicio.html", {'avatar_url':avatar_url})
 
 def cursos(request):
     
@@ -123,7 +131,7 @@ def profesor_update(request, id_profe):
     
     return render(request, "AppCoder/editar_profesor.html", {'form':form, "id_profe": id_profe})
 
-class ProfesorListView(ListView):
+class ProfesorListView(LoginRequiredMixin, ListView):
     model = Profesor
     template_name = "AppCoder/profesores.html"
     context_object_name = 'profesores'
@@ -149,4 +157,22 @@ class ProfesorDeleteView(DeleteView):
     success_url = reverse_lazy('Profesores')
     template_name = "AppCoder/profesor_confirm_delete.html"
     
+
+@login_required
+def agregar_avatar(request):
+    
+    if request.method == 'POST':
+        
+        formulario = AvatarFormulario(request.POST, request.FILES)
+        
+        if formulario.is_valid():
+            avatar = Avatar(user=request.user, imagen=formulario.cleaned_data['imagen'])
+            avatar.save()
+            
+            return redirect('Inicio')
+        
+    else:
+        formulario = AvatarFormulario() 
+        
+    return render(request, 'AppCoder/crear_avatar.html', {'form': formulario})
     
